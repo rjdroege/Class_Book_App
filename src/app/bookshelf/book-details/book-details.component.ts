@@ -1,0 +1,32 @@
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Book } from 'src/app/shared/book/book.model';
+import { BookshelfService } from '../bookshelf.service';
+
+@Component({
+  selector: 'app-book-details',
+  templateUrl: './book-details.component.html',
+  styleUrls: ['./book-details.component.css']
+})
+export class BookDetailsComponent implements OnInit {
+ book: Book;
+ idx: number;
+
+  constructor(private router: Router, private route:
+    ActivatedRoute, private bookshelfService: BookshelfService) { }
+
+  ngOnInit(): void {
+    this.route.params.subscribe((params: Params) => {
+      this.idx = +params['id'];
+      this.book = this.bookshelfService.getBook(this.idx);
+    })
+  }
+
+  onEditBook(){
+    this.router.navigate(['../', this.idx, 'edit'], { relativeTo: this.route });
+    }
+
+  onRemoveBook(idx: number){
+    this.bookshelfService.removeBook(this.idx);
+  }
+}

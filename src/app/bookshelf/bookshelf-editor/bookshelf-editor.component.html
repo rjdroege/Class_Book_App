@@ -1,0 +1,74 @@
+<form (ngSubmit)="onFormSubmit(bookFormRef)" #bookFormRef="ngForm">
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input
+    type="text"
+    class="form-control"
+    id="title"
+    name="title"
+    #titleRef="ngModel"
+    [ngModel]="bookDetails.title"
+    required>
+    <span class="help-block text-danger"
+    *ngIf="titleRef.touched && !titleRef.valid">Please enter a title.</span>
+  </div>
+  <div class="form-group">
+    <label for="author">Author</label>
+    <input
+    type="text"
+    class="form-control"
+    id="author"
+    name="author"
+    #authorRef="ngModel"
+    [ngModel]="bookDetails.author"
+    required>
+    <span class="help-block text-danger"
+    *ngIf="authorRef.touched && !authorRef.valid">Please enter an author.</span>
+  </div>
+  <div class="form-group">
+    <label for="genre">Genre</label>
+    <select class="form-control" id="genre" name="genre"
+    #genreRef="ngModel" [ngModel]="bookDetails.genre" required>
+      <option disabled selected value>Select a genre</option>
+      <option value="Sci-Fi">Sci-Fi</option>
+      <option value="Mystery">Mystery</option>
+      <option value="Programming">Programming</option>
+      <option value="Self-Enrichment">Self-Enrichment</option>
+    </select>
+    <span class="help-block text-danger"
+    *ngIf="genreRef.touched && !genreRef.valid">Please select a genre.</span>
+  </div>
+  <div class="form-group">
+    <label for="coverImagePath">Image</label>
+    <input
+    type="text"
+    class="form-control"
+    id="coverImagePath"
+    name="coverImagePath"
+    #imgRef="ngModel"
+    [ngModel]="bookDetails.coverImagePath"
+    required
+    >
+    <span class="help-block text-danger"
+    *ngIf="imgRef.touched && !imgRef.valid">Please enter an image URL.</span>
+  </div>
+  <div class="row-my-2">
+    <div class="col-xs-10 mx-auto">
+      <img
+      class="img-responsive"
+      [src]="bookFormRef.value['imgPath']"
+      [alt]="bookFormRef.value['title']"
+      />
+    </div>
+  </div>
+  <button
+  type="submit"
+  class="btn btn-primary mr-3"
+  [disabled]="!bookFormRef.valid"
+  >Save
+  </button>
+  <button
+  type="button"
+  class="btn btn-warning" (click)="onResetForm()">
+  Cancel</button>
+</form>
