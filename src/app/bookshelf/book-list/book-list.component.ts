@@ -1,5 +1,6 @@
-import { Component, Input, OnInit  } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit  } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Book } from 'src/app/shared/book/book.model';
 import { BookshelfService } from '../bookshelf.service';
 
@@ -9,7 +10,8 @@ import { BookshelfService } from '../bookshelf.service';
   styleUrls: ['./book-list.component.css']
 })
 
-export class BookListComponent implements OnInit {
+export class BookListComponent implements OnInit, OnDestroy {
+  bookListSub: Subscription;
   @Input() book: Book;
   myBooks: Book[] = [];
     constructor(private bookshelfService: BookshelfService,
@@ -17,7 +19,7 @@ export class BookListComponent implements OnInit {
 
   ngOnInit(): void {
     this.myBooks = this.bookshelfService.getBooks();
-    this.bookshelfService.bookListChanged.subscribe((books: Book[]) => {
+    this.bookListSub = this.bookshelfService.bookListChanged.subscribe((books: Book[]) => {
       this.myBooks = books;
     })
 
@@ -29,6 +31,10 @@ export class BookListComponent implements OnInit {
 
   onRemoveBook(idx){
     this.bookshelfService.removeBook(idx);
+  }
+
+  ngOnDestroy(): void {
+      this.bookListSub.unsubscribe();
   }
 
 

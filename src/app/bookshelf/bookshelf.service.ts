@@ -9,26 +9,7 @@ export class BookshelfService {
   bookSelected = new Subject<Book>();
   bookListChanged = new Subject<Book[]>();
 
-  private myBooks: Book[] = [
-    new Book(
-      "Test Book One",
-      "Ryan Droege",
-      "Self-Help",
-      "https://source.unsplash.com/50x50/?book"
-    ),
-    new Book(
-      "Test Book Two",
-      "Ryan Droege",
-      "Self-Help",
-      "https://source.unsplash.com/50x50/?book"
-    ),
-    new Book(
-      "Test Book Three",
-      "Ryan Droege",
-      "Self-Help",
-      "https://source.unsplash.com/50x50/?book"
-    )
-  ]
+  private myBooks: Book[] = [ ]
 
   getBooks(){
    return this.myBooks.slice();
@@ -36,6 +17,11 @@ export class BookshelfService {
 
   getBook(idx: number){
     return this.myBooks.slice()[idx]
+  }
+
+  setBooks(books: Book[] | []){
+    this.myBooks = books || [];
+    this.bookListChanged.next(this.myBooks.slice());
   }
 
   addBook(newBook: Book){
