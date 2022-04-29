@@ -1,4 +1,6 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { LibraryService } from '../library.service';
 
 @Component({
   selector: 'app-book-search',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookSearchComponent implements OnInit {
 
-  constructor() { }
+  constructor(private http: HttpClient, private libraryService: LibraryService) { }
 
   ngOnInit(): void {
+  }
+
+  onFormSubmit(searchText: string){
+    this.libraryService.fetchBooks(searchText);
   }
 
 }
