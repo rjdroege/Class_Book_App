@@ -16,6 +16,7 @@ import { BookshelfHomeComponent } from './bookshelf/bookshelf-home/bookshelf-hom
 import { BookshelfEditorComponent } from './bookshelf/bookshelf-editor/bookshelf-editor.component';
 import { NotificationComponent } from './shared/notification/notification.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthComponent } from './shared/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { HttpClientModule } from '@angular/common/http';
     BookshelfHomeComponent,
     BookshelfEditorComponent,
     NotificationComponent,
+    AuthComponent,
   ],
   imports: [
     BrowserModule,
