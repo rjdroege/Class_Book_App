@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 import { HTTPService } from '../http/http.service';
 
 @Component({
@@ -6,13 +7,17 @@ import { HTTPService } from '../http/http.service';
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent implements OnInit, OnDestroy {
   collapsed: boolean = true;
   show: boolean = false;
+  isAuthenticated: boolean = false;
 
-  constructor(private httpService: HTTPService) { }
+  constructor(private httpService: HTTPService, private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.currentUser.subscribe((user) => {
+      this.isAuthenticated = !!user;
+    })
   }
 
   onSaveData(){
@@ -23,6 +28,9 @@ export class NavigationComponent implements OnInit {
     this.httpService.fetchBooksFromFirebase();
   }
 
+  ngOnDestroy(): void {
+      this.authService.currentUser.unsubscribe();
+  }
 
 
 }
