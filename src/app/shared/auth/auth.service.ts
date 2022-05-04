@@ -66,4 +66,9 @@ export class AuthService {
     localStorage.setItem("userData", JSON.stringify(formUser));
   }
 
+  signOut(){
+    this.currentUser.next(null);
+    this.router.navigate(['auth']);
+  }
+
 }

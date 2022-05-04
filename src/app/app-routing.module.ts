@@ -6,18 +6,19 @@ import { BookshelfHomeComponent } from "./bookshelf/bookshelf-home/bookshelf-hom
 import { BookshelfEditorComponent } from "./bookshelf/bookshelf-editor/bookshelf-editor.component";
 import { BookDetailsComponent } from "./bookshelf/book-details/book-details.component";
 import { AuthComponent } from "./shared/auth/auth.component";
+import { AuthGuard } from "./shared/auth/auth.guard";
 
 const appRoutes: Routes = [
   { path: "", redirectTo: "/bookshelf", pathMatch: "full" },
   { path: 'auth', component: AuthComponent},
-  { path: "bookshelf", component: BookshelfComponent,
+  { path: "bookshelf", component: BookshelfComponent, canActivate: [AuthGuard],
   children: [
     { path: '', component: BookshelfHomeComponent},
     { path: 'new', component: BookshelfEditorComponent},
     { path: ':id', component: BookDetailsComponent},
     { path: ':id/edit', component: BookshelfEditorComponent}
   ] },
-  { path: "library", component: LibraryComponent },
+  { path: "library", component: LibraryComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

@@ -28,6 +28,10 @@ export class NavigationComponent implements OnInit, OnDestroy {
     this.httpService.fetchBooksFromFirebase();
   }
 
+  onSignOut(){
+    this.authService.signOut();
+  }
+
   ngOnDestroy(): void {
       this.authService.currentUser.unsubscribe();
   }
